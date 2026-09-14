@@ -1,0 +1,130 @@
+name: Generate Pixelorama redraw v4
+
+on:
+  push:
+    branches:
+      - rebuild-tile-prop-v1
+    paths:
+      - scripts/build_phase6_9.py
+      - scripts/build_phase6_9.py.gz.b64
+      - .github/workflows/generate-redraw-v4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild-tile-prop-v1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: python -m pip install pillow
+
+      - name: Build architecture, animation and Godot handoff
+        run: python scripts/build_phase6_9.py
+
+      - name: Download Pixelorama 1.2.2
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/pixelorama"
+          curl -L --fail --retry 3 \
+            https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz \
+            -o "$RUNNER_TEMP/pixelorama.tar.gz"
+          tar -xzf "$RUNNER_TEMP/pixelorama.tar.gz" -C "$RUNNER_TEMP/pixelorama"
+          PIXELORAMA_BIN=$(find "$RUNNER_TEMP/pixelorama" -type f -name 'Pixelorama.x86_64' | head -1)
+          chmod +x "$PIXELORAMA_BIN"
+          echo "PIXELORAMA_BIN=$PIXELORAMA_BIN" >> "$GITHUB_ENV"
+
+      - name: Validate static native PXO assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          assets=(
+            architecture/turret_blue
+            architecture/red_roof_segment
+            architecture/wall_gate
+            tiles/wall_tiles_32
+          )
+          rm -rf validated_v4
+          for rel in "${assets[@]}"; do
+            a=$(basename "$rel")
+            pxo="redraw/$rel/$a.pxo"
+            mkdir -p "validated_v4/$a/export" "validated_v4/$a/split"
+            "$PIXELORAMA_BIN" --headless --quit -- --export \
+              --output "$(pwd)/validated_v4/$a/export/$a.png" "$(pwd)/$pxo" \
+              >"validated_v4/$a/export.log" 2>&1
+            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers \
+              --output "$(pwd)/validated_v4/$a/split/$a.png" "$(pwd)/$pxo" \
+              >"validated_v4/$a/split.log" 2>&1
+          done
+
+      - name: Validate animated native PXO assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          assets=(animation/fountain_water animation/flag_wave animation/lamp_glow)
+          for rel in "${assets[@]}"; do
+            a=$(basename "$rel")
+            pxo="redraw/$rel/$a.pxo"
+            mkdir -p "validated_v4/$a"
+            "$PIXELORAMA_BIN" --headless --quit -- --framecount "$(pwd)/$pxo" \
+              >"validated_v4/$a/framecount.log" 2>&1
+            "$PIXELORAMA_BIN" --headless --quit -- --export --spritesheet \
+              --output "$(pwd)/validated_v4/$a/${a}_spritesheet.png" "$(pwd)/$pxo" \
+              >"validated_v4/$a/spritesheet.log" 2>&1
+          done
+
+      - name: Verify Pixelorama exports
+        shell: bash
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageChops
+          from pathlib import Path
+          root=Path('.')
+          static=[
+            'architecture/turret_blue','architecture/red_roof_segment',
+            'architecture/wall_gate','tiles/wall_tiles_32']
+          for rel in static:
+              a=Path(rel).name
+              authored=Image.open(root/'redraw'/rel/f'{a}.png').convert('RGBA')
+              exported=Image.open(root/'validated_v4'/a/'export'/f'{a}.png').convert('RGBA')
+              if authored.size != exported.size or ImageChops.difference(authored, exported).getbbox() is not None:
+                  raise SystemExit(f'Pixelorama export mismatch: {a}')
+              split_count=len(list((root/'validated_v4'/a/'split').glob('*.png')))
+              if not split_count:
+                  raise SystemExit(f'No split layers: {a}')
+              print(f'{a}: exact static export, {split_count} layers')
+          animated=['fountain_water','flag_wave','lamp_glow']
+          for a in animated:
+              authored=Image.open(root/'redraw'/'animation'/a/f'{a}_spritesheet.png').convert('RGBA')
+              exported=Image.open(root/'validated_v4'/a/f'{a}_spritesheet.png').convert('RGBA')
+              if authored.size != exported.size or ImageChops.difference(authored, exported).getbbox() is not None:
+                  raise SystemExit(f'Pixelorama spritesheet mismatch: {a}')
+              frame_log=(root/'validated_v4'/a/'framecount.log').read_text(errors='replace')
+              if '4' not in frame_log:
+                  raise SystemExit(f'Expected 4 frames: {a}: {frame_log}')
+              print(f'{a}: exact 4-frame spritesheet')
+          PY
+
+      - name: Commit v4 generated assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add redraw/architecture redraw/animation redraw/tiles/wall_tiles_32 \
+            preview/reassembled_plaza_v4.png preview/reassembled_plaza_v4_2x.png \
+            godot manifest_v2.json validated_v4
+          if git diff --cached --quiet; then
+            echo "No v4 asset changes"
+            exit 0
+          fi
+          git commit -m "assets: generate and validate Pixelorama redraw v4"
+          git push origin HEAD:rebuild-tile-prop-v1
