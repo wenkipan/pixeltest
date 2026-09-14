@@ -44,6 +44,110 @@
         160
       ],
       "layers": 6
+    },
+    "market_stall_blue": {
+      "canvas": [
+        128,
+        112
+      ],
+      "layers": 6,
+      "anchor": "bottom-center",
+      "phase": 3
+    },
+    "market_stall_cream": {
+      "canvas": [
+        112,
+        104
+      ],
+      "layers": 6,
+      "anchor": "bottom-center",
+      "phase": 3
+    },
+    "market_stall_red": {
+      "canvas": [
+        112,
+        104
+      ],
+      "layers": 6,
+      "anchor": "bottom-center",
+      "phase": 3
+    },
+    "market_crates": {
+      "canvas": [
+        128,
+        64
+      ],
+      "modules": 8,
+      "cell": [
+        32,
+        32
+      ],
+      "phase": 3
+    },
+    "flower_clusters": {
+      "canvas": [
+        128,
+        64
+      ],
+      "modules": 8,
+      "cell": [
+        32,
+        32
+      ],
+      "phase": 5
+    },
+    "bench_barrel_kit": {
+      "canvas": [
+        128,
+        64
+      ],
+      "layers": 3,
+      "phase": 5
+    },
+    "conifer_tree": {
+      "canvas": [
+        64,
+        128
+      ],
+      "layers": 4,
+      "anchor": "bottom-center",
+      "phase": 5
+    },
+    "curb_tiles_32": {
+      "canvas": [
+        128,
+        96
+      ],
+      "tiles": 12,
+      "tile_size": [
+        32,
+        32
+      ],
+      "phase": 4
+    },
+    "stairs_tiles_32": {
+      "canvas": [
+        96,
+        32
+      ],
+      "tiles": 3,
+      "tile_size": [
+        32,
+        32
+      ],
+      "phase": 4
+    },
+    "grass_edge_tiles_32": {
+      "canvas": [
+        128,
+        64
+      ],
+      "tiles": 8,
+      "tile_size": [
+        32,
+        32
+      ],
+      "phase": 4
     }
   }
 }
