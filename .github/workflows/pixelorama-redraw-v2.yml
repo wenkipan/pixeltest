@@ -36,11 +36,12 @@ jobs:
         shell: bash
         run: |
           set -e
-          rm -rf validated_v2
+          ROOT="$PWD"
+          rm -rf "$ROOT/validated_v2"
           for a in tree_round stone_tiles_32 blue_banner fountain; do
-            mkdir -p "validated_v2/$a/export" "validated_v2/$a/split"
-            "$PIXELORAMA_BIN" --headless --quit -- --export --output "validated_v2/$a/export/$a.png" "redraw/$a/$a.ora"
-            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers --output "validated_v2/$a/split/$a.png" "redraw/$a/$a.ora"
+            mkdir -p "$ROOT/validated_v2/$a/export" "$ROOT/validated_v2/$a/split"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --output "$ROOT/validated_v2/$a/export/$a.png" "$ROOT/redraw/$a/$a.ora"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers --output "$ROOT/validated_v2/$a/split/$a.png" "$ROOT/redraw/$a/$a.ora"
           done
       - name: Verify Pixelorama flattened output matches authored PNG
         run: |
