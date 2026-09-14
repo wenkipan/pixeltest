@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageEnhance
 from pathlib import Path
 from collections import deque
 import numpy as np
-import json
+import json, base64, io
 
 SOURCE = Path('pix.png')
 OUT = Path('generated')
@@ -125,9 +125,16 @@ def make_preview(assets):
     for i,c in enumerate(cells): sheet.alpha_composite(c,((i%cols)*220,(i//cols)*200))
     sheet.save(OUT/'preview'/'assets_sheet.png')
 
+def write_source_preview(src):
+    thumb=src.convert('RGB').copy()
+    thumb.thumbnail((384,384), Image.Resampling.LANCZOS)
+    bio=io.BytesIO(); thumb.save(bio,'JPEG',quality=72,optimize=True)
+    (OUT/'source_preview.b64').write_text(base64.b64encode(bio.getvalue()).decode('ascii'),encoding='ascii')
+
 def main():
     for p in (OUT/'tiles',OUT/'props',OUT/'preview'): p.mkdir(parents=True,exist_ok=True)
     src=Image.open(SOURCE).convert('RGBA'); sw,sh=src.size
+    write_source_preview(src)
     sx,sy=sw/BASE_W, sh/BASE_H
     atlas=Image.new('RGBA',(TILE*3,TILE*2),(0,0,0,0)); tile_meta=[]
     for i,(bx,by,name) in enumerate(TILE_COORDS_BASE):
