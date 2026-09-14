@@ -1,0 +1,138 @@
+name: Generate Pixelorama redraw v3
+
+on:
+  push:
+    branches:
+      - rebuild-tile-prop-v1
+    paths:
+      - scripts/build_phase3_5.py
+      - scripts/save_ora_as_pxo_gui.py
+      - .github/workflows/generate-redraw-v3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild-tile-prop-v1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python and X11 dependencies
+        run: |
+          python -m pip install pillow pyautogui
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb
+
+      - name: Build redraw assets from blank canvases
+        run: python scripts/build_phase3_5.py
+
+      - name: Download Pixelorama 1.2.2
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/pixelorama"
+          curl -L --fail --retry 3 \
+            https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz \
+            -o "$RUNNER_TEMP/pixelorama.tar.gz"
+          tar -xzf "$RUNNER_TEMP/pixelorama.tar.gz" -C "$RUNNER_TEMP/pixelorama"
+          PIXELORAMA_BIN=$(find "$RUNNER_TEMP/pixelorama" -type f -name 'Pixelorama.x86_64' | head -1)
+          chmod +x "$PIXELORAMA_BIN"
+          echo "PIXELORAMA_BIN=$PIXELORAMA_BIN" >> "$GITHUB_ENV"
+
+      - name: Convert ORA assets to native PXO using Pixelorama GUI
+        shell: bash
+        env:
+          PIXELORAMA_STARTUP_WAIT: '4'
+        run: |
+          set -euo pipefail
+          assets=(
+            props/bench_barrel_kit
+            props/conifer_tree
+            props/flower_clusters
+            props/market_crates
+            props/market_stall_blue
+            props/market_stall_cream
+            props/market_stall_red
+            tiles/curb_tiles_32
+            tiles/grass_edge_tiles_32
+            tiles/stairs_tiles_32
+          )
+          display=120
+          for rel in "${assets[@]}"; do
+            a=$(basename "$rel")
+            python scripts/save_ora_as_pxo_gui.py "$display" \
+              "redraw/$rel/$a.ora" "redraw/$rel/$a.pxo"
+            display=$((display+1))
+          done
+
+      - name: Validate native PXO export and layers
+        shell: bash
+        run: |
+          set -euo pipefail
+          assets=(
+            props/bench_barrel_kit
+            props/conifer_tree
+            props/flower_clusters
+            props/market_crates
+            props/market_stall_blue
+            props/market_stall_cream
+            props/market_stall_red
+            tiles/curb_tiles_32
+            tiles/grass_edge_tiles_32
+            tiles/stairs_tiles_32
+          )
+          rm -rf validated_v3
+          for rel in "${assets[@]}"; do
+            a=$(basename "$rel")
+            pxo="redraw/$rel/$a.pxo"
+            mkdir -p "validated_v3/$a/export" "validated_v3/$a/split"
+            "$PIXELORAMA_BIN" --headless --quit -- --export \
+              --output "validated_v3/$a/export/$a.png" "$pxo" \
+              >"validated_v3/$a/export.log" 2>&1
+            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers \
+              --output "validated_v3/$a/split/$a.png" "$pxo" \
+              >"validated_v3/$a/split.log" 2>&1
+          done
+
+      - name: Verify Pixelorama exports are pixel-identical
+        shell: bash
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageChops
+          from pathlib import Path
+          root=Path('.')
+          rels=[
+            'props/bench_barrel_kit','props/conifer_tree','props/flower_clusters','props/market_crates',
+            'props/market_stall_blue','props/market_stall_cream','props/market_stall_red',
+            'tiles/curb_tiles_32','tiles/grass_edge_tiles_32','tiles/stairs_tiles_32']
+          for rel in rels:
+              a=Path(rel).name
+              authored=Image.open(root/'redraw'/rel/f'{a}.png').convert('RGBA')
+              exported=Image.open(root/'validated_v3'/a/'export'/f'{a}.png').convert('RGBA')
+              if authored.size != exported.size or ImageChops.difference(authored, exported).getbbox() is not None:
+                  raise SystemExit(f'Pixelorama export mismatch: {a}')
+              split_count=len(list((root/'validated_v3'/a/'split').glob('*.png')))
+              if split_count == 0:
+                  raise SystemExit(f'No split layers exported: {a}')
+              print(f'{a}: exact match, {split_count} split layers')
+          PY
+
+      - name: Commit v3 generated assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add redraw/props redraw/tiles preview/reassembled_plaza_v3.png preview/reassembled_plaza_v3_2x.png manifest_v2.json validated_v3
+          if git diff --cached --quiet; then
+            echo "No v3 asset changes"
+            exit 0
+          fi
+          git commit -m "assets: generate and validate Pixelorama redraw v3"
+          git push origin HEAD:rebuild-tile-prop-v1
