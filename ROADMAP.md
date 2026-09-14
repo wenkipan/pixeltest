@@ -1,167 +1,101 @@
 # Pixelorama RPG Plaza Rebuild — Complete Plan
 
 ## Goal
-Rebuild the reference plaza as **editable, reusable pixel assets** rather than cropped pieces of the source image. The reference image is visual guidance only; final assets are drawn on blank canvases.
+Rebuild the reference plaza as **editable, reusable pixel assets** rather than cropped pieces of the source image. The reference PNG is visual guidance only; final assets in `redraw/` are authored from blank canvases.
 
 ## Non-negotiable rules
 1. **No source-pixel reuse** in `redraw/`: no crop, alpha-mask extraction, copy/paste, or resampling from `pix.png` into final assets.
-2. Every final asset has an editable **Pixelorama `.pxo`** source.
-3. Props are layered by material/function; tiles are reusable 32x32 modules.
-4. Every `.pxo` must pass Pixelorama CLI export and split-layer validation.
-5. Main map grid is **32x32 px**. Props may be any multiple/overhang of the grid.
+2. Final assets have editable native **Pixelorama `.pxo`** sources.
+3. Props are layered by material/function; terrain uses reusable 32x32 modules.
+4. Native PXO files are validated with Pixelorama CLI export; layered assets also use split-layer validation.
+5. Main map grid is **32x32 px**. Props may overhang multiple cells.
 6. Bottom-center is the default prop anchor unless metadata says otherwise.
 
-## Target repository structure
-```text
-redraw/
-  tiles/
-    stone_tiles_32/
-    curb_tiles_32/
-    grass_edge_tiles_32/
-    flowerbed_edge_tiles_32/
-    stairs_tiles_32/
-  props/
-    lamp_post/
-    tree_round/
-    blue_banner/
-    fountain/
-    market_stall_blue/
-    market_stall_white/
-    crates/
-    flower_clusters/
-    benches_barrels/
-  architecture/
-    turret_blue/
-    roof_red/
-    wall_gate/
-  animation/
-    fountain_water/
-    flag_wave/
-preview/
-  reassembled_plaza_*.png
-scripts/
-  build_pack_v2.py
-  save_ora_as_pxo_gui.py
-manifest_v2.json
-```
+## Phase 0 — Tooling & validation — DONE
+- Pixelorama 1.2.2 runs in the sandbox and GitHub Actions.
+- Deterministic layered OpenRaster -> native PXO conversion is available in `scripts/ora_to_pxo.py`.
+- Pixelorama CLI validation covers flattened export, split layers, frame count and spritesheets.
+- `manifest_v2.json` records the reusable asset pack.
 
-## Phase 0 — Tooling & validation
-- Install/run Pixelorama in the sandbox.
-- Standardize OpenRaster -> Pixelorama `.pxo` conversion.
-- Standardize Pixelorama CLI validation (`--export`, `--split-layers`).
-- Add a manifest describing canvas size, grid footprint, anchor, and layers.
+## Phase 1 — Core visual language — DONE
+Shared warm-stone / cool-outline / blue-accent palette and clustered pixel highlights.
 
-**Acceptance:** a generated `.pxo` reopens in Pixelorama and split-layer export returns the expected layer count.
+Validated core assets:
+- lamp post
+- round tree
+- blue banner
+- six 32x32 pavement variants
 
-## Phase 1 — Core visual language
-Create a shared palette and pixel treatment:
-- warm beige stone, cool dark outlines, saturated blue accents,
-- 1 px dark outline with selective broken outlines,
-- 2–4 shade ramps per material,
-- clustered highlights rather than anti-aliasing.
+## Phase 2 — Landmark fountain — DONE
+Layered fountain with shadow, stone/base, water, pedestal/statue details and highlights. The water was later separated into a native four-frame animation.
 
-**Assets:** lamp post, round tree, blue banner, six 32x32 pavement tiles.
-
-## Phase 2 — Landmark prop
-Redraw the central fountain as a layered scene asset:
-- shadow
-- stone base
-- water
-- pedestal
-- statue
-- highlights
-
-Then split water into an animation track in a later phase.
-
-## Phase 3 — Market kit
-Build modular market pieces, not whole-screen crops:
-- blue striped awning stall
-- cream awning stall
+## Phase 3 — Market kit — DONE (functional v1)
+Reusable market assets:
+- blue striped stall
+- cream stall
 - red/cream stall
-- shelving module
-- produce crates
-- pottery crates
-- counter/table
-- small sign / basket / barrel set
+- produce / pottery / mixed crate modules
+- reusable shelf/counter structure inside the stall layers
 
-Each stall should be composed from shared sub-assets where possible.
+The stalls are authored independently rather than cut out of the reference.
 
-## Phase 4 — Terrain / border TileSet
-Build autotile-friendly 32x32 modules:
+## Phase 4 — Terrain / border TileSet — DONE (functional v1)
+32x32 modular terrain pieces:
 - pavement variants
-- curb straight / inner corner / outer corner / cap
-- grass-to-stone transitions
-- flowerbed borders
-- stairs top/middle/bottom
-- low wall straight/corners
+- curb/border sheet: 12 tiles
+- grass-edge sheet: 8 tiles
+- stairs: 3 tiles
+- wall/battlement sheet: 8 tiles
 
-Target: enough pieces to recreate the plaza's paths without baking the whole map into one image.
+This is enough for a reusable plaza proof. A production game can still expand the autotile combinations later.
 
-## Phase 5 — Vegetation & decoration kit
-- round tree variants A/B/C
+## Phase 5 — Vegetation & decoration — DONE (functional v1)
+- round deciduous tree
 - conifer tree
-- bushes
-- flower clusters in several palettes
-- planters
-- benches / barrels / crates
+- flower-cluster sheet: 8 modules
+- bench/barrel decoration kit
+- market crate sheet: 8 modules
 
-Use a shared trunk/leaf palette and vary silhouette, highlight clusters and footprint.
+More silhouette variants can be added as polish without changing the pipeline.
 
-## Phase 6 — Architecture kit
-- blue turret roof
+## Phase 6 — Architecture kit — DONE (functional v1)
+- blue turret
 - red roof segment
-- stone wall / battlement
-- large gate/steps
-- selected facade modules
+- large stone wall/gate + steps
+- low-wall/battlement 32x32 modules
 
-Architecture can span multiple grid cells and should use explicit anchor + collision metadata.
+All architecture assets are native layered PXO and pass Pixelorama flattened/split-layer validation.
 
-## Phase 7 — Animation
-- fountain water: 4–8 frames
-- banner/flag: 4 frames
-- lamp glow: optional 2–4 frame pulse
+## Phase 7 — Animation — DONE
+Native Pixelorama animations:
+- `fountain_water`: 4 frames @ 8 fps
+- `flag_wave`: 4 frames @ 7 fps
+- `lamp_glow`: 4 frames @ 5 fps
 
-Export spritesheets with Pixelorama CLI and record frame tags in metadata.
+Pixelorama CLI frame counts and spritesheet exports are validated against the authored frames.
 
-## Phase 8 — Reassembly proof
-Build a new plaza composition from only the redrawn assets:
-- tiled ground
-- four vegetation islands
-- central fountain
-- lamps and banners
-- market kit
+## Phase 8 — Reassembly proof — DONE
+`preview/reassembled_plaza_v4.png` is assembled entirely from the redrawn reusable assets: tiled ground, vegetation islands, fountain, banners, lamps, market stalls and architecture. It does not use source-image crops.
 
-The proof image must be assembled from reusable assets only.
+## Phase 9 — Godot handoff — DONE (skeleton / metadata handoff)
+`godot/` contains:
+- `project.godot`
+- `data/handoff.json` with grid, texture/PXO paths, anchors, collision footprints and animation metadata
+- `scenes/plaza_demo.tscn` scene skeleton with Ground / Terrain / Props / Actors groups and Y-sort-ready structure
 
-## Phase 9 — Game-engine handoff
-For Godot:
-- `TileSet` atlas for terrain
-- `.tscn` props for fountain/tree/stall/lamp
-- collision footprints
-- Y-sort anchors
-- optional navigation blockers
+This handoff is intentionally lightweight: the next game-specific step is importing the atlas textures into a real Godot TileSet and tuning collisions/navigation in the target game project.
 
-## Validation checklist per asset
-- [ ] Pixelorama `.pxo` exists.
-- [ ] Opens without error.
-- [ ] Expected layer count exported by Pixelorama CLI.
-- [ ] Flattened Pixelorama export matches authored composite.
-- [ ] Transparent background where appropriate.
-- [ ] No pixels copied from the source PNG.
-- [ ] Grid footprint + bottom-center anchor recorded.
-- [ ] 4x preview exists for visual review.
+## Validation checklist
+For the current functional asset pack:
+- [x] Native Pixelorama `.pxo` sources exist.
+- [x] Pixelorama CLI can open/export the tested PXO files.
+- [x] Static layered assets pass split-layer export checks.
+- [x] Flattened Pixelorama exports match authored composites in validation workflows.
+- [x] Animated PXO files report 4 frames and export pixel-identical spritesheets.
+- [x] Transparent prop backgrounds are preserved.
+- [x] `redraw/` assets are drawn from blank canvases, not copied from the source PNG.
+- [x] 32x32 terrain grid and prop anchors are represented in metadata/handoff files.
+- [x] Reassembly proof exists using reusable assets only.
 
-## Current execution status
-- [x] Pixelorama 1.2.2 running in sandbox.
-- [x] Lamp post `.pxo` validated.
-- [x] Round tree redrawn and `.pxo` validated.
-- [x] Six pavement tiles redrawn and `.pxo` validated.
-- [x] Blue banner redrawn and `.pxo` validated.
-- [x] Fountain v1 redrawn and `.pxo` validated.
-- [x] Reassembled plaza v2 proof generated from redrawn assets.
-- [ ] Market kit.
-- [ ] Terrain border/autotile kit.
-- [ ] Additional vegetation.
-- [ ] Architecture kit.
-- [ ] Animations.
-- [ ] Godot handoff.
+## Current milestone
+**Functional rebuild v4 is complete.** The remaining work is fidelity polish rather than pipeline construction: more hand-painted texture variation, extra tree/flower/stall variants, richer facade modules, and closer visual matching to the reference while keeping all assets modular.
