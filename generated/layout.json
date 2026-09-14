@@ -1,0 +1,132 @@
+{
+  "logical_scale": {
+    "source_pixels_per_asset_pixel": 2,
+    "tile_size": [
+      32,
+      32
+    ]
+  },
+  "tiles": [
+    {
+      "id": "stone_a",
+      "source_bbox_display": [
+        1520,
+        112,
+        1584,
+        176
+      ]
+    },
+    {
+      "id": "stone_b",
+      "source_bbox_display": [
+        1184,
+        160,
+        1248,
+        224
+      ]
+    },
+    {
+      "id": "stone_c",
+      "source_bbox_display": [
+        992,
+        192,
+        1056,
+        256
+      ]
+    },
+    {
+      "id": "stone_d",
+      "source_bbox_display": [
+        864,
+        736,
+        928,
+        800
+      ]
+    },
+    {
+      "id": "stone_e",
+      "source_bbox_display": [
+        720,
+        848,
+        784,
+        912
+      ]
+    },
+    {
+      "id": "stone_f",
+      "source_bbox_display": [
+        1360,
+        208,
+        1424,
+        272
+      ]
+    }
+  ],
+  "props": {
+    "fountain_cluster": {
+      "source_bbox_display": [
+        575,
+        190,
+        1125,
+        715
+      ],
+      "asset_size": [
+        275,
+        262
+      ],
+      "anchor": "bottom-center"
+    },
+    "lamp_post": {
+      "source_bbox_display": [
+        590,
+        155,
+        675,
+        380
+      ],
+      "asset_size": [
+        42,
+        112
+      ],
+      "anchor": "bottom-center"
+    },
+    "blue_banner": {
+      "source_bbox_display": [
+        565,
+        650,
+        655,
+        930
+      ],
+      "asset_size": [
+        45,
+        73
+      ],
+      "anchor": "bottom-center"
+    },
+    "tree_round": {
+      "source_bbox_display": [
+        245,
+        300,
+        435,
+        550
+      ],
+      "asset_size": [
+        94,
+        123
+      ],
+      "anchor": "bottom-center"
+    },
+    "market_stall_blue_cluster": {
+      "source_bbox_display": [
+        1250,
+        470,
+        1590,
+        845
+      ],
+      "asset_size": [
+        149,
+        185
+      ],
+      "anchor": "bottom-center"
+    }
+  }
+}
