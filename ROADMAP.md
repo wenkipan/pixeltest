@@ -85,6 +85,24 @@ Pixelorama CLI frame counts and spritesheet exports are validated against the au
 
 This handoff is intentionally lightweight: the next game-specific step is importing the atlas textures into a real Godot TileSet and tuning collisions/navigation in the target game project.
 
+## Phase 10 — Reference fidelity polish — IN PROGRESS
+The pipeline is no longer the bottleneck. Current work is iterative visual matching against the supplied reference while preserving the modular asset structure.
+
+The sandbox has progressed through art-polish passes v5 -> v10. V10 now matches the reference more closely in the following macro areas:
+- 920x532 logical composition (approximately 2x display scale)
+- fountain shifted to the reference's left-of-center position
+- landscaped fountain ring, stairs and curb segmentation
+- six main market-stall placements and far-edge stall hints
+- lamp/banner/turret positions
+- smaller irregular stone paving
+- denser market goods, pottery, crates and signs
+- more organic tree texture and landscaped flowerbeds
+- lower blue turret / red-roof edge composition
+
+See `docs/ART_POLISH_V10.md` for the current discrepancy checklist.
+
+V10 is **not considered final**. The next passes must move the visual improvements into the individual native PXO assets, with priority on angel anatomy/feathers, market-object density, irregular garden borders, facade/roof detail, tree silhouette variation and final palette/value balancing.
+
 ## Validation checklist
 For the current functional asset pack:
 - [x] Native Pixelorama `.pxo` sources exist.
@@ -96,6 +114,7 @@ For the current functional asset pack:
 - [x] `redraw/` assets are drawn from blank canvases, not copied from the source PNG.
 - [x] 32x32 terrain grid and prop anchors are represented in metadata/handoff files.
 - [x] Reassembly proof exists using reusable assets only.
+- [ ] High-fidelity reference match is complete.
 
 ## Current milestone
-**Functional rebuild v4 is complete.** The remaining work is fidelity polish rather than pipeline construction: more hand-painted texture variation, extra tree/flower/stall variants, richer facade modules, and closer visual matching to the reference while keeping all assets modular.
+**Functional rebuild v4 is complete; fidelity polish has reached v10 and remains in progress.** The goal is now to converge the native Pixelorama assets toward the reference without sacrificing editability or modular reuse.
