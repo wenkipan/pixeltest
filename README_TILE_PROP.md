@@ -1,29 +1,27 @@
 # Tile / Prop rebuild v1
 
-This branch tests a real **asset decomposition** workflow instead of treating the whole reference as one flat image.
+This branch now contains **two different experiments**:
 
-## Working assumptions
+1. `generated/` — automatic extraction / masking from the reference image. This is useful for analysis, but it is **not** a true redraw.
+2. `redraw/` — fresh pixel art drawn onto an empty canvas, then opened and saved in Pixelorama as layered `.pxo` projects.
 
-- Reference is treated as ~2x enlarged pixel art.
-- Asset pixels are reconstructed at half the displayed resolution.
-- Initial world grid: **32x32 asset pixels**.
-- Ground uses reusable tiles.
-- Fountain / lamp / banner / tree / market stall are independent props with transparent backgrounds.
+## True Pixelorama redraw: lamp post
 
-## Files
+The first real redraw is the plaza lamp:
 
-- `assets/tiles/stone_tiles_32.png` - 6 reusable 32x32 pavement variants.
-- `assets/props/*.png` - isolated prop sprites.
-- `assets/layout.json` - source bboxes, sizes, anchors and scale notes.
-- `preview/prop_sheet.png` - prop extraction review sheet.
-- `preview/reassembled_plaza.png` - a new mini scene assembled from the reusable pieces.
-- `scripts/extract_tiles_props.py` - reproducible extraction script.
+- `redraw/lamp_post/lamp_post.pxo` — layered Pixelorama project, created and saved with Pixelorama v1.2.2.
+- `redraw/lamp_post/lamp_post.png` — freshly drawn 32×112 sprite. No pixels are cropped from `pix.png`.
+- `redraw/lamp_post/lamp_post_preview_6x.png` — nearest-neighbor enlarged preview.
+- `redraw/lamp_post/layers/` — editable source layers: shadow, pole/base, lamp frame, glass, highlights, glow.
+- `redraw/lamp_post/lamp_post.ora` — OpenRaster layered interchange file used to bootstrap the Pixelorama project.
+- `scripts/redraw_lamp_post.py` — reproducible drawing script.
 
-## Why this is different from the first pass
+The `.pxo` was verified by Pixelorama CLI export, including `--split-layers`, so the project is genuinely layered rather than a flattened screenshot.
 
-The first pass only reconstructed the image's pixel structure. This pass introduces two reusable asset classes:
+## Earlier extraction experiment
 
-1. **Tile**: repeatable 32x32 ground modules.
-2. **Prop**: sprites larger than one tile, with their own transparent canvas and bottom-center anchor.
+`generated/` contains the previous Tile/Prop extraction test. It samples and masks areas of the source image and should be treated only as a decomposition prototype.
 
-The generated assets can be opened directly in Pixelorama. The next iteration should hand-clean silhouettes, split fountain water/statue/base into layers, and convert road/flowerbed edges into an autotile-style set.
+## Next
+
+Continue with fresh redraws for the round tree, market stall and fountain, then build a reusable stone-road TileSet from newly drawn 32×32 tiles.
