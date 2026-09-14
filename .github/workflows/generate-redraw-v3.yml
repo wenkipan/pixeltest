@@ -6,7 +6,8 @@ on:
       - rebuild-tile-prop-v1
     paths:
       - scripts/build_phase3_5.py
-      - scripts/save_ora_as_pxo_gui.py
+      - scripts/build_phase3_5.py.gz.b64
+      - scripts/ora_to_pxo.py
       - .github/workflows/generate-redraw-v3.yml
   workflow_dispatch:
 
@@ -25,31 +26,14 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Python and X11 dependencies
-        run: |
-          python -m pip install pillow pyautogui
-          sudo apt-get update -qq
-          sudo apt-get install -y xvfb
+      - name: Install Python dependencies
+        run: python -m pip install pillow
 
       - name: Build redraw assets from blank canvases
         run: python scripts/build_phase3_5.py
 
-      - name: Download Pixelorama 1.2.2
+      - name: Convert layered ORA assets to native PXO
         shell: bash
-        run: |
-          mkdir -p "$RUNNER_TEMP/pixelorama"
-          curl -L --fail --retry 3 \
-            https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz \
-            -o "$RUNNER_TEMP/pixelorama.tar.gz"
-          tar -xzf "$RUNNER_TEMP/pixelorama.tar.gz" -C "$RUNNER_TEMP/pixelorama"
-          PIXELORAMA_BIN=$(find "$RUNNER_TEMP/pixelorama" -type f -name 'Pixelorama.x86_64' | head -1)
-          chmod +x "$PIXELORAMA_BIN"
-          echo "PIXELORAMA_BIN=$PIXELORAMA_BIN" >> "$GITHUB_ENV"
-
-      - name: Convert ORA assets to native PXO using Pixelorama GUI
-        shell: bash
-        env:
-          PIXELORAMA_STARTUP_WAIT: '4'
         run: |
           set -euo pipefail
           assets=(
@@ -64,15 +48,25 @@ jobs:
             tiles/grass_edge_tiles_32
             tiles/stairs_tiles_32
           )
-          display=120
           for rel in "${assets[@]}"; do
             a=$(basename "$rel")
-            python scripts/save_ora_as_pxo_gui.py "$display" \
+            python scripts/ora_to_pxo.py \
               "redraw/$rel/$a.ora" "redraw/$rel/$a.pxo"
-            display=$((display+1))
           done
 
-      - name: Validate native PXO export and layers
+      - name: Download Pixelorama 1.2.2
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/pixelorama"
+          curl -L --fail --retry 3 \
+            https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz \
+            -o "$RUNNER_TEMP/pixelorama.tar.gz"
+          tar -xzf "$RUNNER_TEMP/pixelorama.tar.gz" -C "$RUNNER_TEMP/pixelorama"
+          PIXELORAMA_BIN=$(find "$RUNNER_TEMP/pixelorama" -type f -name 'Pixelorama.x86_64' | head -1)
+          chmod +x "$PIXELORAMA_BIN"
+          echo "PIXELORAMA_BIN=$PIXELORAMA_BIN" >> "$GITHUB_ENV"
+
+      - name: Validate native PXO export and layers with Pixelorama
         shell: bash
         run: |
           set -euo pipefail
@@ -94,10 +88,10 @@ jobs:
             pxo="redraw/$rel/$a.pxo"
             mkdir -p "validated_v3/$a/export" "validated_v3/$a/split"
             "$PIXELORAMA_BIN" --headless --quit -- --export \
-              --output "validated_v3/$a/export/$a.png" "$pxo" \
+              --output "$(pwd)/validated_v3/$a/export/$a.png" "$(pwd)/$pxo" \
               >"validated_v3/$a/export.log" 2>&1
             "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers \
-              --output "validated_v3/$a/split/$a.png" "$pxo" \
+              --output "$(pwd)/validated_v3/$a/split/$a.png" "$(pwd)/$pxo" \
               >"validated_v3/$a/split.log" 2>&1
           done
 
