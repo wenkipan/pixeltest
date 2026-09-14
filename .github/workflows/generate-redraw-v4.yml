@@ -78,7 +78,7 @@ jobs:
             "$PIXELORAMA_BIN" --headless --quit -- --framecount "$(pwd)/$pxo" \
               >"validated_v4/$a/framecount.log" 2>&1
             "$PIXELORAMA_BIN" --headless --quit -- --export --spritesheet \
-              --output "$(pwd)/validated_v4/$a/${a}_spritesheet.png" "$(pwd)/$pxo" \
+              --output "$(pwd)/validated_v4/$a/$a.png" "$(pwd)/$pxo" \
               >"validated_v4/$a/spritesheet.log" 2>&1
           done
 
@@ -105,7 +105,7 @@ jobs:
           animated=['fountain_water','flag_wave','lamp_glow']
           for a in animated:
               authored=Image.open(root/'redraw'/'animation'/a/f'{a}_spritesheet.png').convert('RGBA')
-              exported=Image.open(root/'validated_v4'/a/f'{a}_spritesheet.png').convert('RGBA')
+              exported=Image.open(root/'validated_v4'/a/f'{a}.png').convert('RGBA')
               if authored.size != exported.size or ImageChops.difference(authored, exported).getbbox() is not None:
                   raise SystemExit(f'Pixelorama spritesheet mismatch: {a}')
               frame_log=(root/'validated_v4'/a/'framecount.log').read_text(errors='replace')
