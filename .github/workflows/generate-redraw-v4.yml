@@ -28,6 +28,21 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install pillow
 
+      - name: Inspect pix reference
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          im=Image.open('pix.png')
+          print('PIX_REFERENCE_SIZE', im.size, 'MODE', im.mode)
+          PY
+
+      - name: Upload pix reference
+        uses: actions/upload-artifact@v4
+        with:
+          name: pix-reference
+          path: pix.png
+          if-no-files-found: error
+
       - name: Build architecture, animation and Godot handoff
         run: python scripts/build_phase6_9.py
 
