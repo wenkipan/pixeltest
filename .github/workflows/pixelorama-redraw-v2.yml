@@ -1,0 +1,66 @@
+name: Build true Pixelorama redraw v2
+
+on:
+  push:
+    branches: [rebuild-tile-prop-v1]
+    paths:
+      - scripts/build_pack_v2.py
+      - scripts/save_ora_as_pxo_gui.py
+      - .github/workflows/pixelorama-redraw-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild-tile-prop-v1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python/X11 dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libx11-6 libxcursor1 libxinerama1 libxi6 libxrandr2 libgl1
+          python -m pip install pillow pyautogui python-xlib
+      - name: Download Pixelorama 1.2.2
+        run: |
+          curl -L -o /tmp/pixelorama.tar.gz https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz
+          mkdir -p /tmp/pixelorama
+          tar -xzf /tmp/pixelorama.tar.gz -C /tmp/pixelorama
+          find /tmp/pixelorama -name 'Pixelorama.x86_64' -exec chmod +x {} \;
+          echo "PIXELORAMA_BIN=$(find /tmp/pixelorama -name 'Pixelorama.x86_64' | head -1)" >> "$GITHUB_ENV"
+      - name: Draw assets from blank canvases
+        run: python scripts/build_pack_v2.py
+      - name: Save layered projects as native PXO
+        run: |
+          python scripts/save_ora_as_pxo_gui.py 90 redraw/tree_round/tree_round.ora redraw/tree_round/tree_round.pxo
+          python scripts/save_ora_as_pxo_gui.py 91 redraw/stone_tiles_32/stone_tiles_32.ora redraw/stone_tiles_32/stone_tiles_32.pxo
+          python scripts/save_ora_as_pxo_gui.py 92 redraw/blue_banner/blue_banner.ora redraw/blue_banner/blue_banner.pxo
+          python scripts/save_ora_as_pxo_gui.py 93 redraw/fountain/fountain.ora redraw/fountain/fountain.pxo
+      - name: Validate Pixelorama exports and layers
+        shell: bash
+        run: |
+          set -e
+          rm -rf validated_v2
+          for a in tree_round stone_tiles_32 blue_banner fountain; do
+            mkdir -p "validated_v2/$a/export" "validated_v2/$a/split"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --output "validated_v2/$a/export/$a.png" "redraw/$a/$a.pxo"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers --output "validated_v2/$a/split/$a.png" "redraw/$a/$a.pxo"
+          done
+      - name: Commit generated redraws
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add redraw/ preview/ manifest_v2.json validated_v2/
+          if git diff --cached --quiet; then
+            echo "No redraw changes"
+            exit 0
+          fi
+          git commit -m "assets: build true Pixelorama redraw v2"
+          git push origin HEAD:rebuild-tile-prop-v1
