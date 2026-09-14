@@ -5,7 +5,6 @@ on:
     branches: [rebuild-tile-prop-v1]
     paths:
       - scripts/build_pack_v2.py
-      - scripts/save_ora_as_pxo_gui.py
       - .github/workflows/pixelorama-redraw-v2.yml
   workflow_dispatch:
 
@@ -22,11 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install Python/X11 dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb libx11-6 libxcursor1 libxinerama1 libxi6 libxrandr2 libgl1
-          python -m pip install pillow pyautogui python-xlib
+      - name: Install dependencies
+        run: python -m pip install pillow
       - name: Download Pixelorama 1.2.2
         run: |
           curl -L -o /tmp/pixelorama.tar.gz https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz
@@ -36,22 +32,28 @@ jobs:
           echo "PIXELORAMA_BIN=$(find /tmp/pixelorama -name 'Pixelorama.x86_64' | head -1)" >> "$GITHUB_ENV"
       - name: Draw assets from blank canvases
         run: python scripts/build_pack_v2.py
-      - name: Save layered projects as native PXO
-        run: |
-          python scripts/save_ora_as_pxo_gui.py 90 redraw/tree_round/tree_round.ora redraw/tree_round/tree_round.pxo
-          python scripts/save_ora_as_pxo_gui.py 91 redraw/stone_tiles_32/stone_tiles_32.ora redraw/stone_tiles_32/stone_tiles_32.pxo
-          python scripts/save_ora_as_pxo_gui.py 92 redraw/blue_banner/blue_banner.ora redraw/blue_banner/blue_banner.pxo
-          python scripts/save_ora_as_pxo_gui.py 93 redraw/fountain/fountain.ora redraw/fountain/fountain.pxo
-      - name: Validate Pixelorama exports and layers
+      - name: Validate layered ORA files with Pixelorama
         shell: bash
         run: |
           set -e
           rm -rf validated_v2
           for a in tree_round stone_tiles_32 blue_banner fountain; do
             mkdir -p "validated_v2/$a/export" "validated_v2/$a/split"
-            "$PIXELORAMA_BIN" --headless --quit -- --export --output "validated_v2/$a/export/$a.png" "redraw/$a/$a.pxo"
-            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers --output "validated_v2/$a/split/$a.png" "redraw/$a/$a.pxo"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --output "validated_v2/$a/export/$a.png" "redraw/$a/$a.ora"
+            "$PIXELORAMA_BIN" --headless --quit -- --export --split-layers --output "validated_v2/$a/split/$a.png" "redraw/$a/$a.ora"
           done
+      - name: Verify Pixelorama flattened output matches authored PNG
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageChops
+          for a in ['tree_round','stone_tiles_32','blue_banner','fountain']:
+              authored=Image.open(Path('redraw')/a/f'{a}.png').convert('RGBA')
+              exported=Image.open(Path('validated_v2')/a/'export'/f'{a}.png').convert('RGBA')
+              if ImageChops.difference(authored, exported).getbbox() is not None:
+                  raise SystemExit(f'Pixelorama export mismatch: {a}')
+              print('validated', a)
+          PY
       - name: Commit generated redraws
         shell: bash
         run: |
