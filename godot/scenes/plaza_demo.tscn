@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[node name="PlazaDemo" type="Node2D"]
+
+[node name="Ground" type="Node2D" parent="."]
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Props" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Actors" type="Node2D" parent="."]
+y_sort_enabled = true

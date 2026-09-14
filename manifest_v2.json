@@ -148,6 +148,71 @@
         32
       ],
       "phase": 4
+    },
+    "turret_blue": {
+      "canvas": [
+        128,
+        144
+      ],
+      "layers": 5,
+      "phase": 6
+    },
+    "red_roof_segment": {
+      "canvas": [
+        160,
+        96
+      ],
+      "layers": 5,
+      "phase": 6
+    },
+    "wall_gate": {
+      "canvas": [
+        256,
+        160
+      ],
+      "layers": 6,
+      "phase": 6
+    },
+    "wall_tiles_32": {
+      "canvas": [
+        128,
+        64
+      ],
+      "tiles": 8,
+      "tile_size": [
+        32,
+        32
+      ],
+      "phase": 6
+    },
+    "fountain_water": {
+      "canvas": [
+        192,
+        160
+      ],
+      "frames": 4,
+      "fps": 8,
+      "phase": 7
+    },
+    "flag_wave": {
+      "canvas": [
+        64,
+        112
+      ],
+      "frames": 4,
+      "fps": 7,
+      "phase": 7
+    },
+    "lamp_glow": {
+      "canvas": [
+        32,
+        112
+      ],
+      "frames": 4,
+      "fps": 5,
+      "phase": 7
     }
-  }
+  },
+  "proof": "preview/reassembled_plaza_v4.png",
+  "godot_handoff": "godot/data/handoff.json"
 }

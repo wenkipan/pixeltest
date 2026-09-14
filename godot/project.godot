@@ -1,0 +1,12 @@
+[application]
+config/name="Pixelorama Plaza Handoff"
+run/main_scene="res://scenes/plaza_demo.tscn"
+
+[display]
+window/size/viewport_width=960
+window/size/viewport_height=640
+
+[rendering]
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"

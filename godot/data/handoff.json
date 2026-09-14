@@ -1,0 +1,80 @@
+{
+  "grid": [
+    32,
+    32
+  ],
+  "terrain_sources": {
+    "stone": "../redraw/stone_tiles_32/stone_tiles_32.png",
+    "curb": "../redraw/tiles/curb_tiles_32/curb_tiles_32.png",
+    "grass": "../redraw/tiles/grass_edge_tiles_32/grass_edge_tiles_32.png",
+    "stairs": "../redraw/tiles/stairs_tiles_32/stairs_tiles_32.png",
+    "wall": "../redraw/tiles/wall_tiles_32/wall_tiles_32.png"
+  },
+  "props": {
+    "fountain": {
+      "texture": "../redraw/fountain/fountain.png",
+      "anchor": "bottom-center",
+      "collision": [
+        64,
+        28
+      ]
+    },
+    "tree_round": {
+      "texture": "../redraw/tree_round/tree_round.png",
+      "anchor": "bottom-center",
+      "collision": [
+        28,
+        18
+      ]
+    },
+    "lamp_post": {
+      "texture": "../redraw/lamp_post/lamp_post.png",
+      "anchor": "bottom-center",
+      "collision": [
+        10,
+        10
+      ]
+    },
+    "market_stall_blue": {
+      "texture": "../redraw/props/market_stall_blue/market_stall_blue.png",
+      "anchor": "bottom-center",
+      "collision": [
+        92,
+        24
+      ]
+    },
+    "market_stall_cream": {
+      "texture": "../redraw/props/market_stall_cream/market_stall_cream.png",
+      "anchor": "bottom-center",
+      "collision": [
+        84,
+        24
+      ]
+    },
+    "market_stall_red": {
+      "texture": "../redraw/props/market_stall_red/market_stall_red.png",
+      "anchor": "bottom-center",
+      "collision": [
+        84,
+        24
+      ]
+    }
+  },
+  "animations": {
+    "fountain_water": {
+      "pxo": "../redraw/animation/fountain_water/fountain_water.pxo",
+      "frames": 4,
+      "fps": 8
+    },
+    "flag_wave": {
+      "pxo": "../redraw/animation/flag_wave/flag_wave.pxo",
+      "frames": 4,
+      "fps": 7
+    },
+    "lamp_glow": {
+      "pxo": "../redraw/animation/lamp_glow/lamp_glow.pxo",
+      "frames": 4,
+      "fps": 5
+    }
+  }
+}
