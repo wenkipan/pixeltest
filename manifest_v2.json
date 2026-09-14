@@ -1,0 +1,49 @@
+{
+  "grid": [
+    32,
+    32
+  ],
+  "status": "redrawn-from-blank",
+  "assets": {
+    "lamp_post": {
+      "canvas": [
+        32,
+        112
+      ],
+      "layers": 6,
+      "status": "already validated in Pixelorama"
+    },
+    "tree_round": {
+      "canvas": [
+        96,
+        128
+      ],
+      "layers": 6
+    },
+    "stone_tiles_32": {
+      "canvas": [
+        96,
+        64
+      ],
+      "tiles": 6,
+      "tile_size": [
+        32,
+        32
+      ]
+    },
+    "blue_banner": {
+      "canvas": [
+        48,
+        112
+      ],
+      "layers": 5
+    },
+    "fountain": {
+      "canvas": [
+        192,
+        160
+      ],
+      "layers": 6
+    }
+  }
+}
