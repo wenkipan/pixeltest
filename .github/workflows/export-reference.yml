@@ -1,0 +1,34 @@
+name: Export reference pix
+
+on:
+  push:
+    branches:
+      - rebuild-tile-prop-v1
+    paths:
+      - .github/workflows/export-reference.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild-tile-prop-v1
+      - name: Inspect reference
+        run: |
+          file pix.png
+          python - <<'PY'
+          from PIL import Image
+          im=Image.open('pix.png')
+          print('SIZE', im.size, 'MODE', im.mode)
+          PY
+      - name: Upload pix
+        uses: actions/upload-artifact@v4
+        with:
+          name: pix-reference
+          path: pix.png
+          if-no-files-found: error
