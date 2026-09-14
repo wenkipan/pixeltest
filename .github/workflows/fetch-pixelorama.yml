@@ -1,0 +1,25 @@
+name: Fetch Pixelorama binary
+
+on:
+  push:
+    branches:
+      - rebuild-tile-prop-v1
+    paths:
+      - .github/workflows/fetch-pixelorama.yml
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Pixelorama 1.2.2
+        run: |
+          curl -L --fail --retry 3 -o Pixelorama-Linux-64bit.tar.gz \
+            https://github.com/Orama-Interactive/Pixelorama/releases/download/v1.2.2/Pixelorama-Linux-64bit.tar.gz
+          echo '4455a210036cd94268813c395a681fac62f3c169fa9942d34b150e9ed48ed6a3  Pixelorama-Linux-64bit.tar.gz' | sha256sum -c -
+      - name: Upload Pixelorama artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixelorama-linux-1.2.2
+          path: Pixelorama-Linux-64bit.tar.gz
+          retention-days: 1
