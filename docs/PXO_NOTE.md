@@ -1,0 +1,1 @@
+Native `.pxo` sources are generated and validated in the cloud sandbox. The repository's reproducible CI path validates layered `.ora` sources with Pixelorama headless; native PXO GUI conversion is intentionally kept outside hosted CI because Save-As UI coordinates are runner-dependent.
