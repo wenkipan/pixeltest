@@ -8,6 +8,7 @@ on:
       - pix.png
       - scripts/extract_tiles_props.py
       - scripts/wrap_preview.py
+      - scripts/export_source_preview.py
       - .github/workflows/generate-tile-prop.yml
   workflow_dispatch:
 
@@ -30,6 +31,7 @@ jobs:
         run: |
           python scripts/extract_tiles_props.py
           python scripts/wrap_preview.py
+          python scripts/export_source_preview.py
       - name: Commit generated PNGs
         shell: bash
         run: |
