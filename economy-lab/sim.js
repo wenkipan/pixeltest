@@ -61,13 +61,12 @@ function buyAndHoldGain(npc, price) {
 }
 
 /**
- * Exactly the original P' = P (D/S)^k, with no invented fudge factor.
- * For S = 0, the formula is undefined; record a model failure.
- * For D = 0, it returns zero -- a real weakness of the original rule.
+ * Bounded supply-demand adjustment for nonnegative D, S and 0 < k < 1:
+ * P_next = P * (1 + k * (D - S) / (D + S + 1)).
+ * A positive price remains positive even for D=0 or S=0.
  */
 function nextPrice(price, demand, supply, k = K) {
-  if (supply === 0) return null;
-  return price * Math.pow(demand / supply, k);
+  return price * (1 + k * (demand - supply) / (demand + supply + 1));
 }
 
 function makeBakery(name, item, output, input, price, sanCost = 2) {
@@ -136,14 +135,11 @@ function marketDay(world) {
   }
 
   const before = { ...world.prices };
-  const unsupported = [];
   for (const item of Object.keys(world.foods)) {
-    const value = nextPrice(before[item], demand[item], offered[item]);
-    if (value === null) unsupported.push(item + ": zero supply -> D/S undefined");
-    else world.prices[item] = value;
+    world.prices[item] = nextPrice(before[item], demand[item], offered[item]);
   }
   for (const npc of world.npcs) npc.hunger = Math.max(0, npc.hunger - 10);
-  return { before, after: { ...world.prices }, demand, offered, sales, unsupported };
+  return { before, after: { ...world.prices }, demand, offered, sales };
 }
 
 function people(count = 20, change = i => ({})) {
@@ -211,7 +207,7 @@ function scenarios() {
       operatingHoursPerDay: 1, lifeDays: 40, sanCost: 10 },
     { bread: 7, wheat: 1 }, 5);
 
-  // Case exposing D=0 at a positive S, for which the literal formula sets P=0.
+  // D=0 should lower the price without reaching zero.
   const noBuyer = dayResult("zero_demand_boundary",
     breadOnly(people(20, () => ({ gold: 0 })), 12, 5));
 
