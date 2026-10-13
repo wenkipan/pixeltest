@@ -1,7 +1,7 @@
 "use strict";
 const assert=require("node:assert/strict");
 const {create,tick,simulate,potentialLaborSupply}=require("./integrated");
-const {nextPrice}=require("./sim");
+const {nextPrice,makeNpc}=require("./sim");
 const {BUILDINGS}=require("./payroll");
 
 // User's six known recipes, including construction requirements.
@@ -62,6 +62,16 @@ const surplusWorld=create({wage:6,immigration:false});
 const surplus=tick(surplusWorld);
 assert.ok(surplus.laborDemand<surplus.laborSupply);
 assert.ok(surplus.wageAfter<surplus.wageBefore);
+// More available workers, identical funded demand, lower market wage.
+const basicLaborWorld=create({wage:3,immigration:false,construction:false});
+const extraLaborWorld=create({wage:3,immigration:false,construction:false});
+for(let i=0;i<10;i++)extraLaborWorld.npcs.push(
+  makeNpc("extra-"+i,{gold:0,hunger:65,san:85,alpha:1,beta:3,gamma:0.1})
+);
+const basicLabor=tick(basicLaborWorld),extraLabor=tick(extraLaborWorld);
+assert.equal(basicLabor.laborDemand,extraLabor.laborDemand);
+assert.ok(extraLabor.laborSupply>basicLabor.laborSupply);
+assert.ok(extraLabor.wageAfter<basicLabor.wageAfter);
 for(const simRun of [migration,noMigration]){
  for(const hour of simRun.history){
   assert.ok(hour.wageAfter>0 && Number.isFinite(hour.wageAfter));
