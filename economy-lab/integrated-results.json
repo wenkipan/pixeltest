@@ -1,0 +1,2133 @@
+{
+  "formula": "P_next = P * (1 + 0.2 * (D-S) / (D+S+1))",
+  "immigration": "After hourly production, purchases and eating, if (bread inventory + rice inventory) >= 0.5 * residents, one migrant with zero gold enters. No forecasts or new money.",
+  "resources": "Water, electricity and wood are finite initially seeded stocks because no production recipes provided.",
+  "scenarios": {
+    "noImmigration": {
+      "hours": 120,
+      "initialGold": 567,
+      "population": 15,
+      "immigrants": 0,
+      "firstImmigrant": null,
+      "buildingCount": 25,
+      "completedBuildings": 19,
+      "buildingTypes": {
+        "farm": 19,
+        "riceField": 2,
+        "sand": 1,
+        "ironMine": 1,
+        "mill": 1,
+        "bakery": 1
+      },
+      "workHours": 420,
+      "wagesPaid": 1260,
+      "tradedGold": 2178.319165059531,
+      "output": {
+        "barley": 31,
+        "flour": 28,
+        "bread": 56,
+        "rice": 681,
+        "cement": 8,
+        "iron": 8
+      },
+      "sales": {
+        "bread": 56,
+        "rice": 680
+      },
+      "rawLeft": {
+        "water": 2260,
+        "electricity": 2916,
+        "wood": 5
+      },
+      "final": {
+        "hour": 120,
+        "population": 15,
+        "immigrants": 0,
+        "food": 1,
+        "starving": 2,
+        "migrantsStarving": 0,
+        "totalGold": 566.9999999999993,
+        "buildings": 25,
+        "working": 2,
+        "wages": 6,
+        "tradedGold": 6.9067733248626775,
+        "priceBread": 4.441930751349515,
+        "priceRice": 1.3583320872229931,
+        "barley": 0,
+        "flour": 0,
+        "bread": 0,
+        "rice": 6,
+        "cement": 0,
+        "iron": 0,
+        "breadSold": 0,
+        "riceSold": 5
+      },
+      "snapshots": [
+        {
+          "hour": 1,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 6,
+          "working": 12,
+          "wages": 36,
+          "tradedGold": 38,
+          "priceBread": 7.622222222222222,
+          "priceRice": 4.36923076923077,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 2,
+          "iron": 2,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 5,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 12,
+          "working": 11,
+          "wages": 33,
+          "tradedGold": 46.963542450142455,
+          "priceBread": 9.24920975308642,
+          "priceRice": 6.028518974358976,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 15,
+          "population": 15,
+          "immigrants": 0,
+          "food": 8,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567.0000000000002,
+          "buildings": 19,
+          "working": 5,
+          "wages": 15,
+          "tradedGold": 50.653800318906335,
+          "priceBread": 7.341441356134127,
+          "priceRice": 6.274455581148597,
+          "barley": 0,
+          "flour": 1,
+          "bread": 2,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 1,
+          "riceSold": 5
+        },
+        {
+          "hour": 30,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 1,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 21,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 18.328810463684157,
+          "priceBread": 4.086888943552565,
+          "priceRice": 3.0548017439473596,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 60,
+          "population": 15,
+          "immigrants": 0,
+          "food": 2,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 9.313842099982615,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.0151595093102745,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 9
+        },
+        {
+          "hour": 90,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 3,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 8.330356703964137,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.4254165915671966,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 120,
+          "population": 15,
+          "immigrants": 0,
+          "food": 1,
+          "starving": 2,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999993,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 6.9067733248626775,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.3583320872229931,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 5
+        }
+      ],
+      "migrationEvents": [],
+      "constructionEvents": [
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 6,
+          "kind": "riceField",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 9,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 12,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 13,
+          "kind": "riceField",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 18,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 19,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        }
+      ],
+      "moneyConserved": true
+    },
+    "immigration": {
+      "hours": 120,
+      "initialGold": 567,
+      "population": 22,
+      "immigrants": 7,
+      "firstImmigrant": {
+        "hour": 15,
+        "food": 8,
+        "population": 16
+      },
+      "buildingCount": 24,
+      "completedBuildings": 18,
+      "buildingTypes": {
+        "farm": 18,
+        "riceField": 2,
+        "sand": 1,
+        "ironMine": 1,
+        "mill": 1,
+        "bakery": 1
+      },
+      "workHours": 410,
+      "wagesPaid": 1230,
+      "tradedGold": 2137.7532185989517,
+      "output": {
+        "barley": 28,
+        "flour": 27,
+        "bread": 54,
+        "rice": 681,
+        "cement": 8,
+        "iron": 8
+      },
+      "sales": {
+        "bread": 54,
+        "rice": 677
+      },
+      "rawLeft": {
+        "water": 2264,
+        "electricity": 2919,
+        "wood": 10
+      },
+      "final": {
+        "hour": 120,
+        "population": 22,
+        "immigrants": 7,
+        "food": 4,
+        "starving": 9,
+        "migrantsStarving": 3,
+        "totalGold": 566.9999999999997,
+        "buildings": 24,
+        "working": 2,
+        "wages": 6,
+        "tradedGold": 6.523941545145494,
+        "priceBread": 7.450336413188395,
+        "priceRice": 1.2351995992142135,
+        "barley": 0,
+        "flour": 0,
+        "bread": 0,
+        "rice": 6,
+        "cement": 0,
+        "iron": 0,
+        "breadSold": 0,
+        "riceSold": 5
+      },
+      "snapshots": [
+        {
+          "hour": 1,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 6,
+          "working": 12,
+          "wages": 36,
+          "tradedGold": 38,
+          "priceBread": 7.622222222222222,
+          "priceRice": 4.36923076923077,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 2,
+          "iron": 2,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 5,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 12,
+          "working": 11,
+          "wages": 33,
+          "tradedGold": 46.963542450142455,
+          "priceBread": 9.24920975308642,
+          "priceRice": 6.028518974358976,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 15,
+          "population": 16,
+          "immigrants": 1,
+          "food": 8,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567.0000000000002,
+          "buildings": 19,
+          "working": 5,
+          "wages": 15,
+          "tradedGold": 50.653800318906335,
+          "priceBread": 7.341441356134127,
+          "priceRice": 6.274455581148597,
+          "barley": 0,
+          "flour": 1,
+          "bread": 2,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 1,
+          "riceSold": 5
+        },
+        {
+          "hour": 30,
+          "population": 21,
+          "immigrants": 6,
+          "food": 1,
+          "starving": 9,
+          "migrantsStarving": 5,
+          "totalGold": 566.9999999999998,
+          "buildings": 21,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 18.16917192869282,
+          "priceBread": 5.722132624681389,
+          "priceRice": 2.984935388285249,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 60,
+          "population": 22,
+          "immigrants": 7,
+          "food": 5,
+          "starving": 10,
+          "migrantsStarving": 3,
+          "totalGold": 566.9999999999995,
+          "buildings": 24,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 4.779167870228219,
+          "priceBread": 3.4756369217976975,
+          "priceRice": 1.1094496841601225,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 4
+        },
+        {
+          "hour": 90,
+          "population": 22,
+          "immigrants": 7,
+          "food": 0,
+          "starving": 9,
+          "migrantsStarving": 4,
+          "totalGold": 567.0000000000001,
+          "buildings": 24,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 7.913348946904725,
+          "priceBread": 4.205520675375214,
+          "priceRice": 1.3377327981672273,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 120,
+          "population": 22,
+          "immigrants": 7,
+          "food": 4,
+          "starving": 9,
+          "migrantsStarving": 3,
+          "totalGold": 566.9999999999997,
+          "buildings": 24,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 6.523941545145494,
+          "priceBread": 7.450336413188395,
+          "priceRice": 1.2351995992142135,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 5
+        }
+      ],
+      "migrationEvents": [
+        {
+          "hour": 15,
+          "food": 8,
+          "population": 16
+        },
+        {
+          "hour": 16,
+          "food": 10,
+          "population": 17
+        },
+        {
+          "hour": 17,
+          "food": 10,
+          "population": 18
+        },
+        {
+          "hour": 18,
+          "food": 10,
+          "population": 19
+        },
+        {
+          "hour": 20,
+          "food": 11,
+          "population": 20
+        },
+        {
+          "hour": 22,
+          "food": 10,
+          "population": 21
+        },
+        {
+          "hour": 53,
+          "food": 13,
+          "population": 22
+        }
+      ],
+      "constructionEvents": [
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 6,
+          "kind": "riceField",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 9,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 12,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 13,
+          "kind": "riceField",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 18,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 20,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        }
+      ],
+      "moneyConserved": true
+    },
+    "threshold0_3": {
+      "hours": 120,
+      "initialGold": 567,
+      "population": 33,
+      "immigrants": 18,
+      "firstImmigrant": {
+        "hour": 14,
+        "food": 6,
+        "population": 16
+      },
+      "buildingCount": 25,
+      "completedBuildings": 19,
+      "buildingTypes": {
+        "farm": 19,
+        "riceField": 2,
+        "sand": 1,
+        "ironMine": 1,
+        "mill": 1,
+        "bakery": 1
+      },
+      "workHours": 401,
+      "wagesPaid": 1203,
+      "tradedGold": 2031.751890581271,
+      "output": {
+        "barley": 27,
+        "flour": 27,
+        "bread": 44,
+        "rice": 657,
+        "cement": 8,
+        "iron": 8
+      },
+      "sales": {
+        "bread": 44,
+        "rice": 655
+      },
+      "rawLeft": {
+        "water": 2294,
+        "electricity": 2929,
+        "wood": 5
+      },
+      "final": {
+        "hour": 120,
+        "population": 33,
+        "immigrants": 18,
+        "food": 2,
+        "starving": 21,
+        "migrantsStarving": 11,
+        "totalGold": 566.9999999999992,
+        "buildings": 25,
+        "working": 2,
+        "wages": 6,
+        "tradedGold": 6.43456655108627,
+        "priceBread": 13.113650649308616,
+        "priceRice": 1.2473159775951848,
+        "barley": 0,
+        "flour": 0,
+        "bread": 0,
+        "rice": 6,
+        "cement": 0,
+        "iron": 0,
+        "breadSold": 0,
+        "riceSold": 5
+      },
+      "snapshots": [
+        {
+          "hour": 1,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 6,
+          "working": 12,
+          "wages": 36,
+          "tradedGold": 38,
+          "priceBread": 7.622222222222222,
+          "priceRice": 4.36923076923077,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 2,
+          "iron": 2,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 5,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 12,
+          "working": 11,
+          "wages": 33,
+          "tradedGold": 46.963542450142455,
+          "priceBread": 9.24920975308642,
+          "priceRice": 6.028518974358976,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 15,
+          "population": 17,
+          "immigrants": 2,
+          "food": 8,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567.0000000000002,
+          "buildings": 19,
+          "working": 5,
+          "wages": 15,
+          "tradedGold": 50.653800318906335,
+          "priceBread": 7.341441356134127,
+          "priceRice": 6.274455581148597,
+          "barley": 0,
+          "flour": 1,
+          "bread": 2,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 1,
+          "riceSold": 5
+        },
+        {
+          "hour": 30,
+          "population": 25,
+          "immigrants": 10,
+          "food": 1,
+          "starving": 8,
+          "migrantsStarving": 3,
+          "totalGold": 567.0000000000002,
+          "buildings": 20,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 15.000159540509994,
+          "priceBread": 4.05285059515045,
+          "priceRice": 2.9500313763002985,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 5
+        },
+        {
+          "hour": 60,
+          "population": 33,
+          "immigrants": 18,
+          "food": 1,
+          "starving": 19,
+          "migrantsStarving": 9,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 0,
+          "wages": 0,
+          "tradedGold": 6.098974674552894,
+          "priceBread": 13.113650649308616,
+          "priceRice": 0.8603910701601404,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 0,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 7
+        },
+        {
+          "hour": 90,
+          "population": 33,
+          "immigrants": 18,
+          "food": 0,
+          "starving": 20,
+          "migrantsStarving": 14,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 8.06380070394159,
+          "priceBread": 13.113650649308616,
+          "priceRice": 1.3439667839902651,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 120,
+          "population": 33,
+          "immigrants": 18,
+          "food": 2,
+          "starving": 21,
+          "migrantsStarving": 11,
+          "totalGold": 566.9999999999992,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 6.43456655108627,
+          "priceBread": 13.113650649308616,
+          "priceRice": 1.2473159775951848,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 5
+        }
+      ],
+      "migrationEvents": [
+        {
+          "hour": 14,
+          "food": 6,
+          "population": 16
+        },
+        {
+          "hour": 15,
+          "food": 8,
+          "population": 17
+        },
+        {
+          "hour": 16,
+          "food": 11,
+          "population": 18
+        },
+        {
+          "hour": 17,
+          "food": 11,
+          "population": 19
+        },
+        {
+          "hour": 18,
+          "food": 9,
+          "population": 20
+        },
+        {
+          "hour": 19,
+          "food": 10,
+          "population": 21
+        },
+        {
+          "hour": 20,
+          "food": 8,
+          "population": 22
+        },
+        {
+          "hour": 21,
+          "food": 8,
+          "population": 23
+        },
+        {
+          "hour": 22,
+          "food": 12,
+          "population": 24
+        },
+        {
+          "hour": 23,
+          "food": 9,
+          "population": 25
+        },
+        {
+          "hour": 51,
+          "food": 8,
+          "population": 26
+        },
+        {
+          "hour": 52,
+          "food": 10,
+          "population": 27
+        },
+        {
+          "hour": 53,
+          "food": 12,
+          "population": 28
+        },
+        {
+          "hour": 54,
+          "food": 14,
+          "population": 29
+        },
+        {
+          "hour": 55,
+          "food": 16,
+          "population": 30
+        },
+        {
+          "hour": 56,
+          "food": 15,
+          "population": 31
+        },
+        {
+          "hour": 57,
+          "food": 14,
+          "population": 32
+        },
+        {
+          "hour": 58,
+          "food": 12,
+          "population": 33
+        }
+      ],
+      "constructionEvents": [
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 6,
+          "kind": "riceField",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 9,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 12,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 13,
+          "kind": "riceField",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 18,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 40,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 41,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        }
+      ],
+      "moneyConserved": true
+    },
+    "threshold1_0": {
+      "hours": 120,
+      "initialGold": 567,
+      "population": 15,
+      "immigrants": 0,
+      "firstImmigrant": null,
+      "buildingCount": 25,
+      "completedBuildings": 19,
+      "buildingTypes": {
+        "farm": 19,
+        "riceField": 2,
+        "sand": 1,
+        "ironMine": 1,
+        "mill": 1,
+        "bakery": 1
+      },
+      "workHours": 420,
+      "wagesPaid": 1260,
+      "tradedGold": 2178.319165059531,
+      "output": {
+        "barley": 31,
+        "flour": 28,
+        "bread": 56,
+        "rice": 681,
+        "cement": 8,
+        "iron": 8
+      },
+      "sales": {
+        "bread": 56,
+        "rice": 680
+      },
+      "rawLeft": {
+        "water": 2260,
+        "electricity": 2916,
+        "wood": 5
+      },
+      "final": {
+        "hour": 120,
+        "population": 15,
+        "immigrants": 0,
+        "food": 1,
+        "starving": 2,
+        "migrantsStarving": 0,
+        "totalGold": 566.9999999999993,
+        "buildings": 25,
+        "working": 2,
+        "wages": 6,
+        "tradedGold": 6.9067733248626775,
+        "priceBread": 4.441930751349515,
+        "priceRice": 1.3583320872229931,
+        "barley": 0,
+        "flour": 0,
+        "bread": 0,
+        "rice": 6,
+        "cement": 0,
+        "iron": 0,
+        "breadSold": 0,
+        "riceSold": 5
+      },
+      "snapshots": [
+        {
+          "hour": 1,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 6,
+          "working": 12,
+          "wages": 36,
+          "tradedGold": 38,
+          "priceBread": 7.622222222222222,
+          "priceRice": 4.36923076923077,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 2,
+          "iron": 2,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 5,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567,
+          "buildings": 12,
+          "working": 11,
+          "wages": 33,
+          "tradedGold": 46.963542450142455,
+          "priceBread": 9.24920975308642,
+          "priceRice": 6.028518974358976,
+          "barley": 1,
+          "flour": 1,
+          "bread": 2,
+          "rice": 3,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 2,
+          "riceSold": 3
+        },
+        {
+          "hour": 15,
+          "population": 15,
+          "immigrants": 0,
+          "food": 8,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 567.0000000000002,
+          "buildings": 19,
+          "working": 5,
+          "wages": 15,
+          "tradedGold": 50.653800318906335,
+          "priceBread": 7.341441356134127,
+          "priceRice": 6.274455581148597,
+          "barley": 0,
+          "flour": 1,
+          "bread": 2,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 1,
+          "riceSold": 5
+        },
+        {
+          "hour": 30,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 1,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 21,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 18.328810463684157,
+          "priceBread": 4.086888943552565,
+          "priceRice": 3.0548017439473596,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 60,
+          "population": 15,
+          "immigrants": 0,
+          "food": 2,
+          "starving": 0,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 9.313842099982615,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.0151595093102745,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 9
+        },
+        {
+          "hour": 90,
+          "population": 15,
+          "immigrants": 0,
+          "food": 0,
+          "starving": 3,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999995,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 8.330356703964137,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.4254165915671966,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 6
+        },
+        {
+          "hour": 120,
+          "population": 15,
+          "immigrants": 0,
+          "food": 1,
+          "starving": 2,
+          "migrantsStarving": 0,
+          "totalGold": 566.9999999999993,
+          "buildings": 25,
+          "working": 2,
+          "wages": 6,
+          "tradedGold": 6.9067733248626775,
+          "priceBread": 4.441930751349515,
+          "priceRice": 1.3583320872229931,
+          "barley": 0,
+          "flour": 0,
+          "bread": 0,
+          "rice": 6,
+          "cement": 0,
+          "iron": 0,
+          "breadSold": 0,
+          "riceSold": 5
+        }
+      ],
+      "migrationEvents": [],
+      "constructionEvents": [
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 1,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 5,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 6,
+          "kind": "riceField",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 6,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 7,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 9,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-8"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 11,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-sand"
+        },
+        {
+          "hour": 12,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-ironMine"
+        },
+        {
+          "hour": 13,
+          "kind": "riceField",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 13,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 18,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-1"
+        },
+        {
+          "hour": 19,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-worker-2"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 37,
+          "kind": "farm",
+          "event": "start",
+          "owner": "npc-owner-bakery"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-farm"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-riceField"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-mill"
+        },
+        {
+          "hour": 42,
+          "kind": "farm",
+          "event": "complete",
+          "owner": "npc-owner-bakery"
+        }
+      ],
+      "moneyConserved": true
+    }
+  },
+  "parameterSensitivity": [
+    {
+      "k": 0.05,
+      "wage": 2,
+      "population": 93,
+      "newMigrants": 78,
+      "starving": 89,
+      "completedBuildings": 20,
+      "priceBread": 0.236,
+      "priceRice": 0.295,
+      "productionBread": 104,
+      "productionRice": 546
+    },
+    {
+      "k": 0.05,
+      "wage": 3,
+      "population": 76,
+      "newMigrants": 61,
+      "starving": 76,
+      "completedBuildings": 19,
+      "priceBread": 6.443,
+      "priceRice": 0.4,
+      "productionBread": 76,
+      "productionRice": 501
+    },
+    {
+      "k": 0.05,
+      "wage": 4,
+      "population": 72,
+      "newMigrants": 57,
+      "starving": 72,
+      "completedBuildings": 6,
+      "priceBread": 40.307,
+      "priceRice": 1.203,
+      "productionBread": 40,
+      "productionRice": 687
+    },
+    {
+      "k": 0.1,
+      "wage": 2,
+      "population": 56,
+      "newMigrants": 41,
+      "starving": 49,
+      "completedBuildings": 16,
+      "priceBread": 10.09,
+      "priceRice": 0.71,
+      "productionBread": 72,
+      "productionRice": 360
+    },
+    {
+      "k": 0.1,
+      "wage": 3,
+      "population": 45,
+      "newMigrants": 30,
+      "starving": 21,
+      "completedBuildings": 16,
+      "priceBread": 231.737,
+      "priceRice": 1.105,
+      "productionBread": 52,
+      "productionRice": 516
+    },
+    {
+      "k": 0.1,
+      "wage": 4,
+      "population": 40,
+      "newMigrants": 25,
+      "starving": 27,
+      "completedBuildings": 11,
+      "priceBread": 286.412,
+      "priceRice": 1.349,
+      "productionBread": 34,
+      "productionRice": 420
+    },
+    {
+      "k": 0.2,
+      "wage": 2,
+      "population": 34,
+      "newMigrants": 19,
+      "starving": 19,
+      "completedBuildings": 14,
+      "priceBread": 261.985,
+      "priceRice": 1.064,
+      "productionBread": 62,
+      "productionRice": 813
+    },
+    {
+      "k": 0.2,
+      "wage": 3,
+      "population": 22,
+      "newMigrants": 7,
+      "starving": 9,
+      "completedBuildings": 18,
+      "priceBread": 7.45,
+      "priceRice": 1.235,
+      "productionBread": 54,
+      "productionRice": 681
+    },
+    {
+      "k": 0.2,
+      "wage": 4,
+      "population": 21,
+      "newMigrants": 6,
+      "starving": 7,
+      "completedBuildings": 14,
+      "priceBread": 4.107,
+      "priceRice": 1.669,
+      "productionBread": 48,
+      "productionRice": 684
+    }
+  ],
+  "lastState": {
+    "prices": {
+      "barley": 0.0003792027767402639,
+      "flour": 2.4085805649976573,
+      "bread": 7.450336413188395,
+      "rice": 1.2351995992142135,
+      "cement": 1.0526774076161321e-8,
+      "iron": 1.0526774076161321e-8,
+      "wood": 0,
+      "water": 0,
+      "electricity": 0
+    },
+    "inventories": {
+      "barley": 1,
+      "flour": 0,
+      "bread": 0,
+      "rice": 4,
+      "cement": 3,
+      "iron": 3
+    },
+    "migrants": [
+      {
+        "id": "npc-migrant-0",
+        "gold": 0.43,
+        "hunger": 90,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-1",
+        "gold": 0.219,
+        "hunger": 80,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-2",
+        "gold": 1.151,
+        "hunger": 0,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-3",
+        "gold": 1.111,
+        "hunger": 0,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-4",
+        "gold": 1.153,
+        "hunger": 0,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-5",
+        "gold": 0.258,
+        "hunger": 80,
+        "san": 100
+      },
+      {
+        "id": "npc-migrant-6",
+        "gold": 1.811,
+        "hunger": 90,
+        "san": 98
+      }
+    ],
+    "builtTypes": {
+      "farm": 18,
+      "riceField": 2,
+      "sand": 1,
+      "ironMine": 1,
+      "mill": 1,
+      "bakery": 1
+    }
+  }
+}
