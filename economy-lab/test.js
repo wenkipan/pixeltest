@@ -15,13 +15,21 @@ assert.equal(r.speculation.choosesBuyToHold, false);
 assert.equal(r.entry.lowPriceEntry.choosesOpen, false);
 assert.equal(r.entry.highPriceEntry.choosesOpen, true);
 
-// Deliberately record failures, rather than disguising them with new rules.
-assert.equal(sim.nextPrice(5, 0, 10), 0);
-assert.equal(sim.nextPrice(5, 3, 0), null);
-assert.equal(r.boundary.priceAfter, 0);
+// Price never reaches exactly zero with strictly positive starting prices.
+assert.ok(sim.nextPrice(5, 0, 10) > 0);
+assert.ok(sim.nextPrice(5, 3, 0) > 5);
+assert.equal(sim.nextPrice(5, 0, 0), 5);
+assert.ok(r.boundary.priceAfter > 0 && r.boundary.priceAfter < 5);
 
-// Verify the original formula is implemented literally.
-assert.ok(Math.abs(sim.nextPrice(5, 20, 8) - 5 * (20 / 8) ** 0.2) < 1e-12);
+// Verify the updated bounded price equation.
+assert.ok(Math.abs(sim.nextPrice(5, 20, 8)
+  - 5 * (1 + 0.2 * (20 - 8) / (20 + 8 + 1))) < 1e-12);
+for (let d = 0; d <= 100; d += 5) {
+  for (let s = 0; s <= 100; s += 5) {
+    const p = sim.nextPrice(5, d, s);
+    assert.ok(p > 4 && p < 6.00000001);
+  }
+}
 
 // Production consumes REAL input inventory; purchases transfer existing gold.
 const w = sim.breadOnly(sim.people(20), 8, 5);
@@ -34,7 +42,7 @@ assert.equal(w.shops[0].inventory.wheat, wheatBefore - 4);
 assert.equal(day.sales.bread, 8);
 assert.ok(Math.abs(sumGold() - moneyBefore) < 1e-8);
 
-// Multi-period stability probe -- expect to EXPOSE the current price=0 trap.
+// Multi-period stability probe -- positive price, but economic collapse may still occur.
 const follow = sim.breadOnly(sim.people(20), 12, 5);
 const history = Array.from({ length: 8 }, (_, i) => {
   const state = sim.marketDay(follow);
@@ -43,9 +51,9 @@ const history = Array.from({ length: 8 }, (_, i) => {
     sold: state.sales.bread,
     unsupported: state.unsupported };
 });
-assert.ok(history.some(d => d.price === 0), "expected price-zero failure");
-assert.ok(history.filter(d => d.price === 0).length >= 2,
-  "expected persistent price-zero failure");
+assert.ok(history.every(d => d.price > 0), "zero price trap must be removed");
+assert.ok(history.at(-1).price < history[0].price,
+  "without wage income, demand loss still depresses prices");
 
 console.log("All economic-rule checks passed.");
 console.log(JSON.stringify({ scenarioResults: r, eightDayHistory: history }, null, 2));
