@@ -1,0 +1,117 @@
+{
+  "engine": "no forecasts; current-price utility and literal D/S price law",
+  "oneDay": {
+    "breadScarcity": {
+      "demand": 20,
+      "supply": 8,
+      "priceBefore": 5,
+      "priceAfter": 6.005622169907157
+    },
+    "noodles": {
+      "baselineBreadDemand": 20,
+      "breadDemandAfterEntry": 10,
+      "noodleDemandAfterEntry": 10,
+      "breadPriceAfter": 4.820962520013136
+    },
+    "productivity": {
+      "baselineBreadPriceAfter": 5.537831716241451,
+      "newPriceAfter": 4.445447680661
+    },
+    "moneyIssue": {
+      "baselineDemand": 5,
+      "newDemand": 20,
+      "baselinePriceAfter": 4.196891637426938,
+      "newPriceAfter": 5.537831716241451,
+      "richDemandBefore": 20,
+      "richDemandAfter": 20
+    },
+    "speculation": {
+      "buyAndHoldGain": -0.271933715483641,
+      "choosesBuyToHold": false
+    },
+    "entry": {
+      "lowPriceEntry": {
+        "hourlyEquivalent": 2.4869090290008997,
+        "scoreOpen": 0.01114767728984134,
+        "scoreJob": 0.035141649507696826,
+        "choosesOpen": false
+      },
+      "highPriceEntry": {
+        "hourlyEquivalent": 22.4869090290009,
+        "scoreOpen": 0.18783770608011352,
+        "scoreJob": 0.035141649507696826,
+        "choosesOpen": true
+      }
+    },
+    "boundary": {
+      "demand": 0,
+      "priceAfter": 0
+    }
+  },
+  "eightDayHistory": [
+    {
+      "day": 1,
+      "price": 5.537831716241451,
+      "demand": 20,
+      "available": 12,
+      "sales": 12,
+      "undefinedPriceFormula": false
+    },
+    {
+      "day": 2,
+      "price": 0,
+      "demand": 0,
+      "available": 12,
+      "sales": 0,
+      "undefinedPriceFormula": false
+    },
+    {
+      "day": 3,
+      "price": 0,
+      "demand": 20,
+      "available": 12,
+      "sales": 12,
+      "undefinedPriceFormula": false
+    },
+    {
+      "day": 4,
+      "price": 0,
+      "demand": 20,
+      "available": 0,
+      "sales": 0,
+      "undefinedPriceFormula": true
+    },
+    {
+      "day": 5,
+      "price": 0,
+      "demand": 20,
+      "available": 0,
+      "sales": 0,
+      "undefinedPriceFormula": true
+    },
+    {
+      "day": 6,
+      "price": 0,
+      "demand": 20,
+      "available": 0,
+      "sales": 0,
+      "undefinedPriceFormula": true
+    },
+    {
+      "day": 7,
+      "price": 0,
+      "demand": 20,
+      "available": 0,
+      "sales": 0,
+      "undefinedPriceFormula": true
+    },
+    {
+      "day": 8,
+      "price": 0,
+      "demand": 20,
+      "available": 0,
+      "sales": 0,
+      "undefinedPriceFormula": true
+    }
+  ]
+}
