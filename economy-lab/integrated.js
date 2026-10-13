@@ -63,8 +63,6 @@ function work(w,free,demand,stats){
  for(const kind of ORDER)for(const b of w.buildings.filter(x=>x.kind===kind)){
   const r=BUILDINGS[kind];
   if(value(w,r.output)-value(w,r.input)-w.wage<=0)continue;
-  const n=hire(w,free,r.san);
-  if(!n)continue;
   const inputs=Object.entries(r.input);
   const cost=inputs.reduce((v,[item,qty])=>v+priceForInput(w,b.owner,item,qty),0);
   if(b.owner.gold+1e-8<cost+w.wage)continue;
@@ -75,8 +73,11 @@ function work(w,free,demand,stats){
    }
    continue;
   }
+  const n=hire(w,free,r.san);
+  if(!n){stats.unfilledJobs++;continue;}
   for(const [item,qty]of inputs)consumeInput(w,b.owner,item,qty,demand,stats);
   b.owner.gold-=w.wage;n.gold+=w.wage;n.san-=r.san;
+  stats.activeWorkers.add(n.id);
   free.splice(free.indexOf(n),1);stats.jobs++;stats.wages+=w.wage;
   stats.jobsByKind[kind]=(stats.jobsByKind[kind]||0)+1;
   for(const [g,q]of Object.entries(r.output)){
@@ -122,8 +123,10 @@ function beginBuilds(w,demand,stats){
 function advanceBuilds(w,free,stats){
  const ongoing=[];
  for(const p of w.projects){
+  if(p.owner.gold<w.wage){ongoing.push(p);continue;}
   const n=hire(w,free,10);
-  if(!n||p.owner.gold<w.wage){ongoing.push(p);continue;}
+  if(!n){stats.unfilledJobs++;ongoing.push(p);continue;}
+  stats.activeWorkers.add(n.id);
   p.owner.gold-=w.wage;n.gold+=w.wage;n.san-=10;
   free.splice(free.indexOf(n),1);stats.jobs++;stats.wages+=w.wage;
   p.hours--;
@@ -149,16 +152,33 @@ function eating(w,demand,stats){
   stats.tradedGold+=price;
  }
 }
+/**
+ * Labor is a traded commodity. The wage is its posted market price.
+ * Wage bidding uses precisely nextPrice(W,D_L,S_L,k).
+ * Supply includes potential willing workers and workers who actually accept
+ * work after receiving cash during this tick. No minimum/maximum wages.
+ */
+function potentialLaborSupply(w) {
+ const costs=[...w.buildings.map(b=>BUILDINGS[b.kind].san),
+   ...w.projects.map(()=>10)];
+ return new Set(w.npcs.filter(n=>costs.some(c=>workerValue(n,w,c)>0)).map(n=>n.id));
+}
 function tick(w){
  w.hour++;
+ const wageBefore=w.wage, willingWorkers=potentialLaborSupply(w);
  const before=Object.fromEntries(Object.keys(w.prices).map(k=>[k,total(w,k)]));
  const demand=Object.fromEntries(Object.keys(w.prices).map(k=>[k,0]));
- const stats={jobs:0,wages:0,tradedGold:0,made:{},sold:{},jobsByKind:{}};
+ const stats={jobs:0,unfilledJobs:0,activeWorkers:new Set(),
+   wages:0,tradedGold:0,made:{},sold:{},jobsByKind:{}};
  const free=[...w.npcs];
  work(w,free,demand,stats);
  beginBuilds(w,demand,stats);
  advanceBuilds(w,free,stats);
  eating(w,demand,stats);
+ const laborDemand=stats.jobs+stats.unfilledJobs;
+ for(const id of stats.activeWorkers)willingWorkers.add(id);
+ const laborSupply=willingWorkers.size;
+ w.wage=nextPrice(wageBefore,laborDemand,laborSupply,w.k);
  for(const g of Object.keys(w.prices))
   if(!(g in w.raw))w.prices[g]=nextPrice(w.prices[g],demand[g],before[g]+(stats.made[g]||0),w.k);
  for(const n of w.npcs){
@@ -175,7 +195,9 @@ function tick(w){
    food,starving:w.npcs.filter(n=>n.hunger===0).length,
    migrantsStarving:w.npcs.filter(n=>n.id.startsWith("npc-migrant-")&&n.hunger===0).length,
    totalGold:w.npcs.reduce((s,n)=>s+n.gold,0),
-   buildings:w.buildings.length,working:stats.jobs,wages:stats.wages,tradedGold:stats.tradedGold,
+   buildings:w.buildings.length,working:stats.jobs,unfilledJobs:stats.unfilledJobs,
+   laborDemand,laborSupply,wageBefore,wageAfter:w.wage,
+   wages:stats.wages,tradedGold:stats.tradedGold,
    priceBread:w.prices.bread,priceRice:w.prices.rice,
    barley:stats.made.barley||0,flour:stats.made.flour||0,
    bread:stats.made.bread||0,rice:stats.made.rice||0,
@@ -192,6 +214,7 @@ function simulate(hours=120,options={}){
   completed:w.buildLog.filter(x=>x.event==="complete").length,
   buildingTypes:Object.fromEntries(ORDER.map(k=>[k,w.buildings.filter(b=>b.kind===k).length])),
   workHours:sum("working"),wagesPaid:sum("wages"),tradedGold:sum("tradedGold"),
+  initialWage:history[0].wageBefore,finalWage:history.at(-1).wageAfter,
   output:Object.fromEntries(["barley","flour","bread","rice","cement","iron"].map(k=>[k,sum(k)])),
   sales:{bread:sum("breadSold"),rice:sum("riceSold")},rawLeft:w.raw,
   birthEvents:w.birthsLog,buildEvents:w.buildLog,
@@ -200,4 +223,4 @@ function simulate(hours=120,options={}){
 if(require.main===module) console.log(JSON.stringify({
  control:simulate(120,{immigration:false}),
  migration:simulate(120,{immigration:true})},null,2));
-module.exports={create,tick,simulate,ORDER,PRICES,FOODS};
+module.exports={create,tick,simulate,ORDER,PRICES,FOODS,potentialLaborSupply};
