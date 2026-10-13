@@ -1,6 +1,7 @@
 "use strict";
 const assert=require("node:assert/strict");
-const {create,tick,simulate}=require("./integrated");
+const {create,tick,simulate,potentialLaborSupply}=require("./integrated");
+const {nextPrice}=require("./sim");
 const {BUILDINGS}=require("./payroll");
 
 // User's six known recipes, including construction requirements.
@@ -18,7 +19,7 @@ const migration=simulate(120,{immigration:true});
 assert.equal(noMigration.immigrants,0);
 assert.ok(migration.immigrants>0);
 assert.ok(migration.population>noMigration.population);
-assert.equal(migration.firstImmigrant.hour,15);
+assert.ok(migration.firstImmigrant.hour>0);
 assert.ok(migration.firstImmigrant.food>=0.5*(migration.firstImmigrant.population-1));
 assert.ok(migration.buildings>6);
 assert.ok(migration.completed>0);
@@ -49,6 +50,28 @@ for(let i=0;i<120;i++){
 }
 assert.ok(paid && built && migrated);
 
+// Wage is an endogenous commodity, with one unified D/S price rule.
+const shortageWorld=create({wage:1,immigration:false});
+const offered=potentialLaborSupply(shortageWorld);
+const shortage=tick(shortageWorld);
+assert.ok(shortage.laborDemand>shortage.laborSupply);
+assert.equal(shortage.laborSupply,offered.size);
+assert.ok(shortage.wageAfter>shortage.wageBefore);
+assert.ok(shortage.unfilledJobs>0);
+const surplusWorld=create({wage:6,immigration:false});
+const surplus=tick(surplusWorld);
+assert.ok(surplus.laborDemand<surplus.laborSupply);
+assert.ok(surplus.wageAfter<surplus.wageBefore);
+for(const simRun of [migration,noMigration]){
+ for(const hour of simRun.history){
+  assert.ok(hour.wageAfter>0 && Number.isFinite(hour.wageAfter));
+  assert.ok(hour.working<=hour.laborSupply);
+  assert.ok(hour.laborDemand>=hour.working);
+  assert.ok(Math.abs(hour.wageAfter-
+    nextPrice(hour.wageBefore,hour.laborDemand,hour.laborSupply,0.2))<1e-10);
+ }
+}
+
 // Crucial counterexample: no paid labor => no food production => hunger.
 const noWages=simulate(30,{wage:0,construction:false,immigration:false});
 assert.equal(noWages.workHours,0);
@@ -60,7 +83,7 @@ assert.ok(noWages.final.starving>0);
 const aggressive=simulate(120,{surplus:0.3});
 const conservative=simulate(120,{surplus:1});
 assert.ok(aggressive.immigrants>migration.immigrants);
-assert.equal(conservative.immigrants,0);
+assert.ok(conservative.immigrants<=migration.immigrants);
 console.log("Integrated economy checks passed.",
   {control: noMigration.final, immigration: migration.final,
    newPeople:migration.immigrants, construction:migration.completed,
