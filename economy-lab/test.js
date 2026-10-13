@@ -47,5 +47,5 @@ assert.ok(history.some(d => d.price === 0), "expected price-zero failure");
 assert.ok(history.filter(d => d.price === 0).length >= 2,
   "expected persistent price-zero failure");
 
-console.log("All 15 economic-rule checks passed.");
+console.log("All economic-rule checks passed.");
 console.log(JSON.stringify({ scenarioResults: r, eightDayHistory: history }, null, 2));
